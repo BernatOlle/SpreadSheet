@@ -6,5 +6,6 @@ class CircularDependencyException(Exception):
 
     def __init__(self,mssg):
         Exception.__init__(self,mssg)
-        self.message = mssg
-        
+    def message(self):
+        print("Circular Dependency Exception")
+        return "Circular Dependency Exception"

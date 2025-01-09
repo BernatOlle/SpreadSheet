@@ -3041,6 +3041,10 @@ Checking that the program detects direct circular dependencies. Value: 4
 Checking that the program detects indirect circular dependencies. Value: 6
 	Case 1: a change is introduced in a cell that does not introduce a circular dependency. Value: 1.7999999999999998
 ['E', 'A11', '=A2+A5']
+<SpreadSheet.entities.Cell.Cell object at 0x104e04710>
+<SpreadSheet.entities.Cell.Cell object at 0x104e04920>
+<SpreadSheet.entities.Cell.Cell object at 0x104e04260>
+<SpreadSheet.entities.Cell.Cell object at 0x104e04bc0>
 SPREADSHEET NAME:  marker_save_test.s2v
         |     A        |
 --------|--------------|
