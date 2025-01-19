@@ -27,24 +27,15 @@ class Cell:
     def getContent(self):
         return self.content
     
-    def insertNewContent(self, content_string):
-        """
-        The function `insertNewContent` takes a string as input and returns an instance of a specific
-        content type (FormulaContent, NumericalContent, or TextualContent) based on the content of the
-        string.
+    def insertCellContent(self, content_string):
         
-        :param content_string: The `content_string` parameter is a string that represents the content you
-        want to insert. It can be either a numerical value (integer or float) or a textual value (string)
-        :return: an instance of either the FormulaContent, NumericalContent, or TextualContent class,
-        depending on the type of content_string passed as a parameter.
-        """
         if self.cell_id in self.spreadsheet.no_existent_cells:
                 depend_cell = self.spreadsheet.no_existent_cells.pop(self.cell_id)
                 self.dependOnMe[depend_cell.cell_id] = depend_cell
         string = content_string.strip()
         if string[0] == "=":
             formulacontent = FormulaContent(content_string, self.formulaComputing, self.spreadsheet.cells)
-            self.proveNoCircularExeption(content_string)
+            self.NoCircularException(content_string)
             formulacontent.calculateFormula() 
             newdepend = formulacontent.getCircularDependences()
             
@@ -102,7 +93,7 @@ class Cell:
                             i=+1
                 
                 
-    def proveNoCircularExeption(self, string):
+    def NoCircularException(self, string):
         if len(self.dependOnMe) != 0:
             postfix = self.formulaComputing.computeFormula(string)
             
@@ -113,7 +104,7 @@ class Cell:
                     idependon = iscell
                     
                     for dependonme in self.dependOnMe.values():
-                        dependonme.proveNoCircularExeption(string)
+                        dependonme.NoCircularException(string)
                         dependonmecellid = dependonme.column + str(dependonme.row)
                         
                         if idependon == dependonmecellid:

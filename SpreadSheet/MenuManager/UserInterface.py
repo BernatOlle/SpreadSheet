@@ -1,4 +1,4 @@
-from UI.SyntexException import SyntaxException
+from SpreadSheet.MenuManager.SyntexException import SyntaxException
 import os
 
 class UserInterface:
@@ -55,12 +55,10 @@ class UserInterface:
                 raise SyntaxException("Parsing Error, you need to specify CELL ID and CONTENT (EXAMPLE: E A4 4.5)")
             cell_id = parsed_command[1]
             self.idCellSyntaxControl(cell_id)
-            # Join the rest of the tokens to allow spaces in text content or formulas
             content = " ".join(parsed_command[2:])
             return ("E", cell_id, content)
 
         if parsed_command[0] == "C":
-            # 'C' command should not have any additional arguments
             if len(parsed_command) != 1:
                 raise SyntaxException("Command C does not require additional arguments. Just type C.")
             return ("C",)
@@ -82,7 +80,6 @@ class UserInterface:
         if parsed_command[0] == "S":
             if len(parsed_command) != 2:
                 raise SyntaxException("S command requires exactly one argument (example: S SpreadSheet.s2v)")
-            # Para 'S' no verificamos la existencia del path, se puede crear un nuevo archivo
             return ("S", parsed_command[1])
     
     def idCellSyntaxControl(self, cell_id):
@@ -99,7 +96,6 @@ class UserInterface:
         
     def pathExists(self, path):
         directorio = os.path.dirname(path)
-        # Si no se especifica directorio, asumimos que el path es válido en el directorio actual
         if directorio == "":
             return True
         return os.path.exists(directorio)

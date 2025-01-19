@@ -11,8 +11,8 @@ class Tokenize():
             'colon_character': r':',
             'semi_colon_character': r';',
             'comma': r',',
-            'function_name': r'SUMA|PROMEDIO|MAX|MIN',  # Añadir más funciones según sea necesario
-            'range': r'[A-Z]+\d+:[A-Z]+\d+'  # Por ejemplo, A1:B3
+            'function_name': r'SUMA|PROMEDIO|MAX|MIN',  
+            'range': r'[A-Z]+\d+:[A-Z]+\d+' 
         }
     
     def tokenize(self, formula):

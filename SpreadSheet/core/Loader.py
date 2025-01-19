@@ -1,10 +1,10 @@
 import csv
-from UI.UserInterface import UserInterface
+from SpreadSheet.MenuManager.UserInterface import UserInterface
 from SpreadSheet.Evaluators.FormulaComputing import FormulaComputing
 class Loader():
 
     def __init__(self, formulacomputing):
-        self.UI = UserInterface()
+        self.MainMenu = UserInterface()
         self.formulacomputing = formulacomputing
 
     def loadSpreadSheet(self, path):
@@ -34,7 +34,7 @@ class Loader():
             csv_reader = csv.reader(archivo_csv)
             for linea in csv_reader:
                 #lineas_csv.append(linea)
-                cc = self.UI.mainMenu(linea)
+                cc = self.MainMenu.mainMenu(linea)
                 c.append(cc)
             return c
         
