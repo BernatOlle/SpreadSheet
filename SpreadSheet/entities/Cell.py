@@ -4,7 +4,6 @@ from Content.entities.TextContent import TextContent
 from Content.entities.FormulaContent import FormulaContent
 from SpreadsheetMarkerForStudents.entities.circular_dependency_exception import CircularDependencyException
 class Cell:
-    ##ME INTERESA GUARDAR POR SEPARADO LAS FILAS Y COLUMNAS PARA PODER PRINTEARLAS MEJOR
     def __init__(self, cell_id, formulaComputing, spreadsheet) -> None:
         column = ""
         row = ""
@@ -18,7 +17,6 @@ class Cell:
         self.row = int(row)
         self.column = column
         self.spreadsheet = spreadsheet
-        ##DUDA JUAN CARLOS: DUDO MUCHO QUE TE GUSTE ESTO
         self.content : Content
         self.formulaComputing = formulaComputing
         self.iDependOn = []
@@ -47,11 +45,8 @@ class Cell:
         if string[0] == "=":
             formulacontent = FormulaContent(content_string, self.formulaComputing, self.spreadsheet.cells)
             self.proveNoCircularExeption(content_string)
-            formulacontent.calculateFormula() #LE PASARIA SOLO LAS DEPENDING CELLS PERO TENGO PROBLEMAS CON LAS OPERACIONES CON RANGOS NO SON SOLO UNA CELDA
+            formulacontent.calculateFormula() 
             newdepend = formulacontent.getCircularDependences()
-            
-            
-        
             
             for cell_depend in newdepend:
                 if not isinstance(cell_depend, str):
