@@ -1,19 +1,19 @@
-from SpreadSheet.MenuManager.UserInterface import UserInterface
-from SpreadSheet.entities.SpreadSheet import SpreadSheet
+from SpreadSheet.MenuManager.MainMenuManager import MainMenuManager
+from SpreadSheet.Entities.SpreadSheet import SpreadSheet
 from SpreadSheet.Controller.SpreedSheetCommandException import SpreadSheetCommandException
 from SpreadSheet.Evaluators.FormulaComputing import FormulaComputing
-from SpreadSheet.core.FileManager import FileManager
+from SpreadSheet.Core.FileManager import FileManager
 
 class SpreadSheetManager:
     def __init__(self):
-        self.ui_handler = UserInterface()
+        self.ui_handler = MainMenuManager()
         self.current_spreadsheet = None
         self.formula_evaluator = FormulaComputing()
         self.file_handler = FileManager(self.formula_evaluator)
 
     def display_menu(self):
         command = self.ui_handler.mainMenu()
-        self.process_command(command)
+        return self.process_command(command)
 
     def process_command(self, command):
 
@@ -57,6 +57,15 @@ class SpreadSheetManager:
             if self.current_spreadsheet is None:
                 raise SpreadSheetCommandException("Cannot save a spreadsheet that hasn't been created or loaded.")
             try:
-                self.file_handler.saveFile(self.current_spreadsheet, command[1])
+                self.file_handler.saveFile(self.current_spreadsheet, command[1]+self.current_spreadsheet.getName())
             except:
                 raise SpreadSheetCommandException("Failed to save the current spreadsheet.")
+        elif command[0] == "EXIT":
+            print("Exiting the program. Goodbye!")
+            return False
+        
+        elif command[0] == "SHOW":
+            if self.current_spreadsheet is None:
+                raise SpreadSheetCommandException("Cannot display a spreadsheet that hasn't been created or loaded.")
+            self.current_spreadsheet.display()
+        return True

@@ -1,7 +1,7 @@
 from SpreadSheet.MenuManager.SyntexException import SyntaxException
 import os
 
-class UserInterface:
+class MainMenuManager:
    
     def __init__(self) -> None:
         pass
@@ -10,11 +10,13 @@ class UserInterface:
         print(30 * "-", "MAIN MENU", 30 * "-")
         print("")
         print("COMMANDS ALLOWED:")
-        print("RF <text file pathname>   - Read commands from file")
-        print("C                       - Create a new empty spreadsheet")
+        print("RF <text file pathname>         - Read commands from file")
+        print("C <file.s2v>                    - Create a new empty spreadsheet")
         print("E <cell coordinate> <new cell content> - Edit a cell")
-        print("L <SV2 file pathname>   - Load a spreadsheet from file")
-        print("S <SV2 file pathname>   - Save the spreadsheet to file")
+        print("L <s2v file pathname>           - Load a spreadsheet from file")
+        print("S <s2v place pathname>          - Save the spreadsheet to location with the spreadsheet name provided in the creation")
+        print("SHOW                            - Shows current spreadsheet")
+        print("EXIT                            - Exit the program")
         print(60 * "-")
         print("Examples for 'E' command:")
         print("E A1 7.5            -> to input numeric content")
@@ -47,9 +49,16 @@ class UserInterface:
         except Exception:
             raise SyntaxException("Can't not parse the command")
         
-        if parsed_command[0] not in {"RF", "C", "E", "L", "S"}:
+        # Añadimos "EXIT" al conjunto de comandos permitidos
+        if parsed_command[0] not in {"RF", "C", "E", "L", "S", "EXIT", "SHOW"}:
             raise SyntaxException("Command not correct")
         
+        if parsed_command[0] == "EXIT":
+            return ("EXIT",)
+        
+        if parsed_command[0] == "SHOW":
+            return ("SHOW",)
+
         if parsed_command[0] == "E":
             if len(parsed_command) < 3:
                 raise SyntaxException("Parsing Error, you need to specify CELL ID and CONTENT (EXAMPLE: E A4 4.5)")
@@ -59,9 +68,9 @@ class UserInterface:
             return ("E", cell_id, content)
 
         if parsed_command[0] == "C":
-            if len(parsed_command) != 1:
-                raise SyntaxException("Command C does not require additional arguments. Just type C.")
-            return ("C",)
+            if len(parsed_command) != 2:
+                raise SyntaxException("Command C does not require additional arguments. Just type C 'filename.s2v'.")
+            return ("C", parsed_command[1])
 
         if parsed_command[0] == "RF":
             if len(parsed_command) != 2:

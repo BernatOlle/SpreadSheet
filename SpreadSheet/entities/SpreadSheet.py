@@ -1,8 +1,8 @@
 # The SpreadSheet class represents a spreadsheet and allows for inserting content into cells and
 # printing the spreadsheet.
 
-from SpreadSheet.entities.Cell import Cell
-from SpreadSheet.core.PrinterSpreadSheet import PrinterSpreadSheet
+from SpreadSheet.Entities.Cell import Cell
+from SpreadSheet.Core.PrinterSpreadSheet import PrinterSpreadSheet
 
 
 

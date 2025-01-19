@@ -1,5 +1,5 @@
-from SpreadSheet.core.Loader import Loader
-from SpreadSheet.core.Saver import Saver
+from SpreadSheet.Core.Loader import Loader
+from SpreadSheet.Core.Saver import Saver
 
 class FileManager():
     def __init__(self, formulacomputing) -> None:

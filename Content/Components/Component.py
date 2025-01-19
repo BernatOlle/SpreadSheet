@@ -106,7 +106,7 @@ class Component():
             
             if(operands[0].isType() == "Cell_Range"):
                 first_value = operands[0].getValue()[0]
-            if(operands[1].isType(c) == "Cell_Range"):
+            if(operands[1].isType() == "Cell_Range"):
                 second_value = operands[1].getValue()[0]
                 
             return Number(Operator(operator).execute(first_value, second_value))

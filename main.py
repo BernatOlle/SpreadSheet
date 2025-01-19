@@ -5,7 +5,8 @@ if __name__ == "__main__":
     while True:
         
         try:
-            spreadsheetcontroller.display_menu()
+            if not spreadsheetcontroller.display_menu():
+                break
         except Exception as Error:
             print(Error.message)
         
