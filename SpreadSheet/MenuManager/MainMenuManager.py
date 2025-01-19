@@ -31,10 +31,7 @@ class MainMenuManager:
             return self.insertCommand()
 
     def insertCommand(self, choice=None):
-        """
-        The function prompts the user for a command, passes it to a command syntax checker, and then applies
-        the command.
-        """
+      
         if choice is not None:
             choice = str(choice).replace('[', '').replace(']', '').replace("'", '')
             parsed_choice = self.commandSyntax(choice)
@@ -49,7 +46,6 @@ class MainMenuManager:
         except Exception:
             raise SyntaxException("Can't not parse the command")
         
-        # Añadimos "EXIT" al conjunto de comandos permitidos
         if parsed_command[0] not in {"RF", "C", "E", "L", "S", "EXIT", "SHOW"}:
             raise SyntaxException("Command not correct")
         

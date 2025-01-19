@@ -6,9 +6,7 @@ class Saver():
         pass
 
     def saveSpreadSheet(self,spreadsheet, path):
-        # Nombre que le ponemos al archivo de texto que queremos guardar
         archivo_txt = path
-        # Obtener una lista de la primera coordenada (las letras) del diciionario únicas y ordenadas
         cells = spreadsheet.cells
         unique_coordinates = sorted(set(coord[0] for coord in cells.keys()))
         
@@ -59,15 +57,4 @@ class Saver():
                     i+=1
                 file.write("\n")
                 
-                
-            # for row_num in range(1, max(int(coord[1:]) for coord in cells.keys()) + 1):
-            #     row_values = []
-            #     for col in unique_coordinates:
-            #         coordenada = f"{col}{row_num}"
-            #         value = cells[coordenada].content.getValue()
-                   
-            #         row_values.append(value)
-            #     csv_writer.writerow(row_values)
-
-
-        print(f'Se ha guardado el diccionario en el archivo : {archivo_txt}')
+        print(f'Fila saved in: {archivo_txt}')

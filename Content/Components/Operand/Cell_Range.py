@@ -2,7 +2,6 @@ from Content.Components.Operand.Operand import Operand
 from Content.Components.Operand.Function.Arguments import Arguments
 
 class Cell_Range(Operand, Arguments):
-    #solo rowa y rowb
     def __init__(self, cell1, cell2, cells) -> None:
         column_a = ""
         row_a = ""
@@ -34,7 +33,6 @@ class Cell_Range(Operand, Arguments):
         Arguments.__init__(self,"Cell_Range")
         
     def getValue(self):
-      # faltan exepciones
         range_values = []
         
         
@@ -49,20 +47,16 @@ class Cell_Range(Operand, Arguments):
     def getCells(self):
         range_cells = []
 
-        # Crear un conjunto de todas las celdas existentes en self.cells
         existing_cells = {f"{cell.column}{cell.row}" for cell in self.cells.values()}
 
-        # Iterar sobre el rango especificado por column_a, column_b, row_a, row_b
-        for col in range(ord(self.column_a), ord(self.column_b) + 1):  # Columnas como letras
-            for row in range(self.row_a, self.row_b + 1):  # Filas como números
-                cell_id = f"{chr(col)}{row}"  # Crear la celda como string, por ejemplo, "A1"
+        for col in range(ord(self.column_a), ord(self.column_b) + 1):  
+            for row in range(self.row_a, self.row_b + 1):  
+                cell_id = f"{chr(col)}{row}"  
                 
                 if cell_id in existing_cells:
-                    # Añadir celdas existentes como objetos
                     cell_obj = next(cell for cell in self.cells.values() if f"{cell.column}{cell.row}" == cell_id)
                     range_cells.append(cell_obj)
                 else:
-                    # Añadir celdas faltantes como cadenas de texto
                     range_cells.append(cell_id)
 
         return range_cells
