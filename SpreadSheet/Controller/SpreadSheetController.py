@@ -5,7 +5,7 @@ from UI.UserInterface import UserInterface
 from SpreadSheet.entities.SpreadSheet import SpreadSheet
 from SpreadSheet.Controller.SpreedSheetCommandException import SpreadSheetCommandException
 from SpreadSheet.Evaluators.FormulaComputing import FormulaComputing
-from SpreadSheet.core.FileController import FileController
+from SpreadSheet.core.FileManager import FileManager
 
 class SpreadSheetManager:
     def __init__(self):
@@ -13,7 +13,7 @@ class SpreadSheetManager:
         self.ui_handler = UserInterface()
         self.current_spreadsheet = None
         self.formula_evaluator = FormulaComputing()
-        self.file_handler = FileController(self.formula_evaluator)
+        self.file_handler = FileManager(self.formula_evaluator)
 
     def display_menu(self):
         # Show the main menu to the user and process their command.
