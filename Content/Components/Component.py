@@ -1,4 +1,3 @@
-##POSTFIXEVALUATOR
 from Content.Components.Operand.Cell_Range import Cell_Range
 from .Operator import Operator
 from Content.Components.Operand.Number import Number
