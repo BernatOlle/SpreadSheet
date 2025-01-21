@@ -1,29 +1,9 @@
 
-
-# Python program to convert infix expression to postfix
- 
-# Class to convert the expression
 class GeneratePostfix:
-    #A4-B2/SUMA(A2:A4;B4)   --> 
-
-    # A4      POSTFIX  A4                         STACK 
-    # -       POSTFIX  A4                         STACK -
-    # B2      POSTFIX  A4 B2                      STACK -
-    # /       POSTFIX  A4 B2                      STACK - /
-    # SUMA    POSTFIX  A4 B2                      STACK - / SUMA
-    # (       POSTFIX  A4 B2                      STACK - / SUMA (
-    # A2      POSTFIX  A4 B2 A2                   STACK - / SUMA (
-    # :       POSTFIX  A4 B2 A2                   STACK - / SUMA ( :
-    # A4      POSTFIX  A4 B2 A2 A4 :              STACK - / SUMA ( 
-    # ;       POSTFIX  A4 B2 A2 A4 :              STACK - / SUMA ( ;
-    # B4      POSTFIX  A4 B2 A2 A4 : B4 ;         STACK - / SUMA ( 
-    # )       POSTFIX  A4 B2 A2 A4 : B4 ; SUMA / -
- 
-    # Constructor to initialize the class variables
     def __init__(self):
         self.precedence = {'+': 2, '-': 2, '*': 3, '/': 3, "PROMEDIO":10, "SUMA":10, "MAX":10, "MIN":10, ":":10, ";":1}
         
-    def infixToPostfix(self, tokens):
+    def generatePostfix(self, tokens):
         stack = []
         postfix = []
         i = 0

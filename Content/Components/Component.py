@@ -1,12 +1,12 @@
-##POSTFIXEVALUATOR
-from Content.Components.Operand.Function.Cell_Range import Cell_Range
+from Content.Components.Operand.Cell_Range import Cell_Range
+from .Operator import Operator
 from Content.Components.Operand.Number import Number
 from Content.Components.Operand.Function.SUM_Function import SUM_Function
 from Content.Components.Operand.Function.Min_Function import MinOperand
 from Content.Components.Operand.Function.Max_Function import MaxOperand
 from Content.Components.Operand.Function.Promedio_Function import PromedioOperand
 
-class ContentManager():
+class Component():
     
     def __init__(self, operations, formulaComputing, spreadsheet) -> None:
         self.operators = ["+","-","*","/"]
@@ -108,22 +108,8 @@ class ContentManager():
             if(operands[1].isType() == "Cell_Range"):
                 second_value = operands[1].getValue()[0]
                 
-            if operator == "+":
-                o = float(first_value) +float(second_value)
-                return Number(o)
-                
-            elif operator == "-":
-                o = float(first_value) - float(second_value)
-                return Number(o)
+            return Number(Operator(operator).execute(first_value, second_value))
 
-            elif operator == "*":
-                
-                o = float(first_value) * float(second_value)
-                return Number(o)
-
-            elif operator == "/":
-                o = float(first_value) / float(second_value)
-                return Number(o)
 
     def dependingCells(self):
         return self.iDependOn

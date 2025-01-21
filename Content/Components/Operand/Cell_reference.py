@@ -4,7 +4,7 @@ class RangeCells(Operand, Arguments):
     
     def __init__(self, cell1, cells) -> None:
       
-        self.cell1 = cells[cell1] #falta añadir excepcion
+        self.cell1 = cells[cell1]
         
         self.cells = cells
         Arguments.super().__init__("CellReference")

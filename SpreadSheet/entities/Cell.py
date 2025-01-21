@@ -4,7 +4,6 @@ from Content.entities.TextContent import TextContent
 from Content.entities.FormulaContent import FormulaContent
 from SpreadsheetMarkerForStudents.entities.circular_dependency_exception import CircularDependencyException
 class Cell:
-    ##ME INTERESA GUARDAR POR SEPARADO LAS FILAS Y COLUMNAS PARA PODER PRINTEARLAS MEJOR
     def __init__(self, cell_id, formulaComputing, spreadsheet) -> None:
         column = ""
         row = ""
@@ -18,7 +17,6 @@ class Cell:
         self.row = int(row)
         self.column = column
         self.spreadsheet = spreadsheet
-        ##DUDA JUAN CARLOS: DUDO MUCHO QUE TE GUSTE ESTO
         self.content : Content
         self.formulaComputing = formulaComputing
         self.iDependOn = []
@@ -29,29 +27,17 @@ class Cell:
     def getContent(self):
         return self.content
     
-    def insertNewContent(self, content_string):
-        """
-        The function `insertNewContent` takes a string as input and returns an instance of a specific
-        content type (FormulaContent, NumericalContent, or TextualContent) based on the content of the
-        string.
+    def insertCellContent(self, content_string):
         
-        :param content_string: The `content_string` parameter is a string that represents the content you
-        want to insert. It can be either a numerical value (integer or float) or a textual value (string)
-        :return: an instance of either the FormulaContent, NumericalContent, or TextualContent class,
-        depending on the type of content_string passed as a parameter.
-        """
-    
+        if self.cell_id in self.spreadsheet.no_existent_cells:
+                depend_cell = self.spreadsheet.no_existent_cells.pop(self.cell_id)
+                self.dependOnMe[depend_cell.cell_id] = depend_cell
         string = content_string.strip()
         if string[0] == "=":
             formulacontent = FormulaContent(content_string, self.formulaComputing, self.spreadsheet.cells)
-            self.proveNoCircularExeption(content_string)
-            formulacontent.calculateFormula() #LE PASARIA SOLO LAS DEPENDING CELLS PERO TENGO PROBLEMAS CON LAS OPERACIONES CON RANGOS NO SON SOLO UNA CELDA
+            self.NoCircularException(content_string)
+            formulacontent.calculateFormula() 
             newdepend = formulacontent.getCircularDependences()
-            
-            if self.cell_id in self.spreadsheet.no_existent_cells:
-                depend_cell = self.spreadsheet.no_existent_cells.pop(self.cell_id)
-                self.dependOnMe[depend_cell.cell_id] = depend_cell
-        
             
             for cell_depend in newdepend:
                 if not isinstance(cell_depend, str):
@@ -100,13 +86,14 @@ class Cell:
                     for e in eliminar:
                         i = 0
                         for delete in cell.iDependOn:
+                            print(delete)
                             todele = delete.column + str(delete.row)
                             if todele == celda:
                                 del cell.iDependOn[i]
                             i=+1
                 
                 
-    def proveNoCircularExeption(self, string):
+    def NoCircularException(self, string):
         if len(self.dependOnMe) != 0:
             postfix = self.formulaComputing.computeFormula(string)
             
@@ -117,9 +104,9 @@ class Cell:
                     idependon = iscell
                     
                     for dependonme in self.dependOnMe.values():
-                        dependonme.proveNoCircularExeption(string)
+                        dependonme.NoCircularException(string)
                         dependonmecellid = dependonme.column + str(dependonme.row)
                         
                         if idependon == dependonmecellid:
-                            raise CircularDependencyException("ERROR")
+                            raise CircularDependencyException("Error consti")
     

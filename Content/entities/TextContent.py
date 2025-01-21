@@ -13,7 +13,6 @@ class TextContent(Content):
                 num_value = float(self.content)
                 return num_value
             except:
-                #return self.content
                 raise TextualCellEception("The system tries to get a numerical value from a text value")
         
 
